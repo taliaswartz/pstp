@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NACST · Physician-Scientist Advising Toolkit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Spline+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#11303b; --ink-soft:#3c5560; --paper:#eef3f5; --paper-2:#dfe9ec;
+    --teal:#1e5e72; --teal-2:#134a5c; --accent:#2e7e94; --accent-2:#256a7e;
+    --steel:#a7c2ce; --gold:#b07a16; --rose:#a83a6f; --indigo:#3f4f86;
+    --line:#cddbe0; --white:#ffffff;
+    --shadow:0 1px 2px rgba(17,48,59,.06),0 8px 28px rgba(17,48,59,.10);
+    --radius:14px;
+    --serif:'Fraunces',Georgia,'Times New Roman',serif;
+    --sans:'Spline Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:
+      radial-gradient(1200px 600px at 82% -10%, rgba(46,126,148,.12), transparent 60%),
+      radial-gradient(900px 500px at -5% 5%, rgba(30,94,114,.08), transparent 55%),
+      var(--paper);
+    color:var(--ink); font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent-2)}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+  header.top{background:linear-gradient(160deg,var(--teal) 0%, #134a5c 60%, #0f3d4c 100%);
+    color:#eef6f8; padding:30px 0 0; border-bottom:3px solid var(--accent); position:relative; overflow:hidden}
+  header.top:before{content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:22px 22px;opacity:.5;pointer-events:none}
+  .brandrow{display:flex;align-items:center;gap:16px;position:relative}
+  .brandrow img.logo{width:74px;height:74px;border-radius:50%;flex:none;box-shadow:0 2px 10px rgba(0,0,0,.25);background:#fff}
+  .eyebrow{font:600 12px/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#9fd3dc}
+  h1.title{font:600 36px/1.03 var(--serif);margin:6px 0 6px;letter-spacing:-.01em;max-width:22ch}
+  .sub{max-width:68ch;color:#cfe0e6;font-size:15px;margin:0 0 4px}
+  .src{font-size:12.5px;color:#9fb6bf;margin:14px 0 0}
+  .src a{color:#a7dbe2}
+  nav.tabs{display:flex;flex-wrap:wrap;gap:2px;margin-top:20px}
+  nav.tabs button{appearance:none;border:0;background:transparent;color:#bcd2d9;font:600 14px var(--sans);
+    padding:13px 18px;cursor:pointer;border-radius:10px 10px 0 0;border-bottom:3px solid transparent;transition:.18s;white-space:nowrap}
+  nav.tabs button:hover{color:#fff;background:rgba(255,255,255,.06)}
+  nav.tabs button.active{color:var(--teal);background:var(--paper);border-bottom-color:var(--accent)}
+  main{padding:30px 0 70px}
+  .view{display:none;animation:rise .4s ease both}
+  .view.active{display:block}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  h2.sec{font:600 26px/1.1 var(--serif);margin:6px 0 4px;letter-spacing:-.01em}
+  .lead{color:var(--ink-soft);max-width:74ch;margin:0 0 22px;font-size:15px}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .pad{padding:20px 22px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .feature h3{font:600 18px var(--serif);margin:2px 0 6px}
+  .feature p{margin:0;font-size:14px;color:var(--ink-soft)}
+  .num{font:600 13px var(--sans);color:var(--accent-2);letter-spacing:.12em}
+  .callout{border-left:4px solid var(--accent);background:#fff;padding:16px 20px;border-radius:0 12px 12px 0;margin-top:20px}
+  .callout strong{color:var(--accent-2)}
+  .callout.gold{border-left-color:var(--gold)} .callout.gold strong{color:var(--gold)}
+  .callout ul{margin:8px 0 0;padding-left:18px} .callout li{margin-bottom:6px;font-size:14px}
+  .statbar{display:flex;flex-wrap:wrap;gap:26px;margin:20px 0 4px}
+  .stat .v{font:600 30px var(--serif);color:var(--teal);line-height:1}
+  .stat .l{font-size:12.5px;color:var(--ink-soft);margin-top:3px}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+  input[type=search],select,input[type=text],textarea{font:500 14px var(--sans);color:var(--ink);background:var(--white);
+    border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline:none;transition:.15s}
+  input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(46,126,148,.16)}
+  input[type=search]{min-width:220px}
+  .count{margin-left:auto;font-size:13px;color:var(--ink-soft)}
+  .btn{appearance:none;border:1px solid var(--teal);background:var(--teal);color:#fff;font:600 13.5px var(--sans);
+    padding:9px 14px;border-radius:10px;cursor:pointer;transition:.15s}
+  .btn:hover{background:var(--teal-2)}
+  .btn.ghost{background:transparent;color:var(--teal);border-color:var(--line)}
+  .btn.ghost:hover{border-color:var(--teal);background:#fff}
+  .btn.accent{background:var(--accent);border-color:var(--accent)}
+  .btn.accent:hover{background:var(--accent-2)}
+  .btn.sm{padding:6px 10px;font-size:12.5px}
+  .btn.danger{background:transparent;color:var(--rose);border-color:#e0c2d1}
+  .btn.danger:hover{background:#fff;border-color:var(--rose)}
+  .spec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .spec{cursor:pointer;transition:.18s;overflow:hidden}
+  .spec:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(17,48,59,.14)}
+  .spec .pad{display:flex;flex-direction:column;gap:10px}
+  .spec .row1{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .spec h3{font:600 20px var(--serif);margin:0}
+  .tag{display:inline-block;font:600 11px var(--sans);letter-spacing:.04em;text-transform:uppercase;padding:4px 9px;border-radius:999px;white-space:nowrap}
+  .t-common{background:#e1efe9;color:#1d5b46}
+  .t-rising{background:#e2ecf5;color:#2a5485}
+  .t-special{background:#ebe7f3;color:#574a86}
+  .t-emerging{background:#f3ebdf;color:#8a5a14}
+  .t-mstp{background:#d8e9ee;color:var(--teal-2)}
+  .t-lead{background:#f0e4cf;color:#8a5410}
+  .t-nonmstp{background:#e3e9ec;color:#4a5b63}
+  .t-pstp{background:#e2e6f3;color:var(--indigo)}
+  .pill{display:inline-flex;align-items:center;gap:5px;font:600 12px var(--sans);padding:5px 10px;border-radius:8px;background:var(--paper-2);color:var(--ink-soft)}
+  .pill b{color:var(--ink)}
+  .pill.yes{background:#d8e9ee;color:var(--teal-2)}
+  .gradwrap{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-soft)}
+  .gradwrap .lbl{min-width:138px}
+  .meter{flex:1;height:7px;background:var(--paper-2);border-radius:99px;overflow:hidden}
+  .meter > i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--teal-2))}
+  .spec .pills{display:flex;flex-wrap:wrap;gap:7px}
+  .scrim{position:fixed;inset:0;background:rgba(17,48,59,.45);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:.25s;z-index:40}
+  .scrim.show{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:min(540px,94vw);background:var(--paper);
+    box-shadow:-20px 0 60px rgba(0,0,0,.25);transform:translateX(102%);transition:.3s cubic-bezier(.4,0,.2,1);z-index:50;display:flex;flex-direction:column}
+  .drawer.show{transform:none}
+  .drawer header{background:var(--teal);color:#fff;padding:22px 24px;border-bottom:3px solid var(--accent)}
+  .drawer header .tag{margin-bottom:8px}
+  .drawer header h3{font:600 26px var(--serif);margin:0}
+  .drawer .body{overflow:auto;padding:22px 24px;flex:1}
+  .drawer .close{position:absolute;top:16px;right:18px;background:rgba(255,255,255,.14);border:0;color:#fff;width:34px;height:34px;border-radius:9px;font-size:18px;cursor:pointer}
+  .drawer .close:hover{background:rgba(255,255,255,.28)}
+  .deet{margin:0 0 18px}
+  .deet .k{font:600 11.5px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-2);margin-bottom:5px}
+  .deet .v{font-size:14.5px;color:var(--ink)}
+  .deet .v.muted{color:var(--ink-soft)}
+  .deet .v small{color:var(--ink-soft);font-size:12px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{font:600 12.5px var(--sans);padding:5px 11px;border-radius:8px;background:var(--white);border:1px solid var(--line);cursor:pointer}
+  .chip:hover{border-color:var(--accent);color:var(--accent-2)}
+  .pg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .pg{display:flex;flex-direction:column}
+  .pg .pad{padding:16px 18px;display:flex;flex-direction:column;gap:9px}
+  .pg .nm{font:600 18px var(--serif);margin:0;line-height:1.18}
+  .pg .loc{font-size:13.5px;color:var(--ink-soft)}
+  .pg .meta{display:flex;flex-wrap:wrap;gap:6px}
+  .pg .meta .pill{font-size:11.5px;padding:4px 9px}
+  .pg .strength{font-size:13px;color:var(--ink)}
+  .pg .pspline{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+  .pg .pspline .k{font:600 11px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--indigo);margin-right:2px}
+  .pg .psp-chip{font:600 11.5px var(--sans);padding:3px 8px;border-radius:7px;background:#e2e6f3;color:var(--indigo)}
+  .pg .acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:2px}
+  .pg .seedflag{font-size:11px;color:var(--gold);font-weight:600}
+  .pg .nmlink{color:inherit;text-decoration:none;transition:color .15s}
+  .pg .nmlink:hover{color:var(--accent);text-decoration:underline}
+  .pg .nmgo{font-size:12px;color:var(--accent-2);font-weight:600;white-space:nowrap}
+  .arc{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px}
+  .arc-stage{background:var(--white);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:14px;padding:14px 14px 15px;display:flex;flex-direction:column;gap:9px}
+  .arc-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .arc-num{display:inline-flex;align-items:center;justify-content:center;width:25px;height:25px;border-radius:50%;background:var(--teal);color:#fff;font:700 12px var(--sans);flex:none}
+  .arc-dur{font:600 11.5px var(--sans);color:var(--accent-2);background:var(--paper);padding:3px 9px;border-radius:999px;white-space:nowrap}
+  .arc-title{font:600 15px var(--serif);color:var(--ink);line-height:1.2}
+  .arc-desc{font-size:12px;color:var(--ink-soft);line-height:1.5;flex:1}
+  .arc-flabel{font:700 9.5px var(--sans);letter-spacing:.09em;text-transform:uppercase;color:var(--steel);margin-bottom:-3px}
+  .arc-fund{display:flex;flex-wrap:wrap;gap:5px}
+  .arc-tag{font:600 10.5px var(--sans);color:var(--indigo);background:rgba(63,79,134,.09);border:1px solid rgba(63,79,134,.22);padding:2px 7px;border-radius:6px;white-space:nowrap}
+  .cmp-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+  .cmp-chip{font:600 12px var(--sans);color:var(--accent-2);background:var(--white);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;transition:.15s}
+  .cmp-chip:hover:not(:disabled){border-color:var(--accent)}
+  .cmp-chip.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+  .cmp-chip:disabled{opacity:.38;cursor:not-allowed}
+  .cmp-chip.clear{color:var(--rose);border-style:dashed}
+  .cmp-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table.cmp{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px;min-width:440px}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  table.cmp thead th{background:var(--teal);color:#fff;font:600 13px var(--sans)}
+  table.cmp thead th:first-child{background:transparent;border-top:none;border-left:none}
+  table.cmp tbody th{background:var(--paper);font:600 12px var(--sans);color:var(--ink);width:150px}
+  table.cmp td{color:var(--ink-soft);line-height:1.5}
+  .cmp-badge{display:inline-block;font:600 10px var(--sans);color:var(--teal);background:rgba(30,94,114,.10);border-radius:5px;padding:1px 6px;margin-top:3px}
+  .cmp-badge.alt{color:var(--gold);background:rgba(176,122,22,.12)}
+  .cmp-na{color:var(--steel);font-style:italic}
+  .cmp-hint{color:var(--ink-soft);font-size:13px;margin:10px 0 0}
+  .qa-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:18px 26px;margin-top:14px}
+  .qa-group h4{font:700 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--accent-2);margin:0 0 9px}
+  .qa-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .qa-item{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--ink);line-height:1.5}
+  .qa-item input{margin:3px 0 0;accent-color:var(--teal);width:15px;height:15px;flex:none}
+  .status{display:inline-flex;align-items:center;gap:7px;font:600 12px var(--sans);padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:#fff}
+  .dot{width:8px;height:8px;border-radius:99px;background:var(--gold)}
+  .dot.live{background:var(--accent)}
+  .ref-block{margin-bottom:26px}
+  table.ref{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+  table.ref th,table.ref td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:top}
+  table.ref th{background:var(--teal);color:#fff;font:600 12.5px var(--sans);letter-spacing:.04em;text-transform:uppercase}
+  table.ref tr:last-child td{border-bottom:0}
+  table.ref td b{color:var(--teal-2)}
+  .mech{font:600 13px var(--sans);color:var(--rose)}
+  .reflist{display:flex;flex-direction:column;gap:10px}
+  .refitem{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 16px;box-shadow:var(--shadow);font-size:13.5px;color:var(--ink-soft)}
+  .refitem a{font-weight:600}
+  .quiz{max-width:760px}
+  .q{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:14px;box-shadow:var(--shadow)}
+  .q .qt{font:600 16px var(--serif);margin:0 0 12px}
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .opt{font:500 13.5px var(--sans);padding:8px 13px;border:1px solid var(--line);border-radius:9px;background:var(--paper);cursor:pointer;transition:.12s}
+  .opt:hover{border-color:var(--accent)}
+  .opt.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .result h3{font:600 20px var(--serif);margin:0 0 6px}
+  .matchrow{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+  .matchrow:last-child{border-bottom:0}
+  .matchrow .nmx{font:600 15px var(--serif);min-width:160px}
+  .scorebar{flex:1;min-width:120px;height:9px;background:var(--paper-2);border-radius:99px;overflow:hidden}
+  .scorebar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--teal-2))}
+  .matchrow .pc{font:600 13px var(--sans);color:var(--ink-soft);min-width:42px;text-align:right}
+  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:60;padding:18px}
+  .modal.show{display:flex}
+  .modal .sheet{background:var(--paper);border-radius:16px;max-width:580px;width:100%;max-height:92vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.4)}
+  .modal .sheet header{background:var(--teal);color:#fff;padding:18px 22px;border-radius:16px 16px 0 0}
+  .modal .sheet header h3{font:600 21px var(--serif);margin:0}
+  .form{padding:20px 22px;display:grid;gap:14px}
+  .form .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .form label{font:600 12px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:5px}
+  .form input,.form textarea,.form select{width:100%}
+  .form .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:4px}
+  .hint{font-size:12px;color:var(--ink-soft);margin-top:4px}
+  .empty{text-align:center;color:var(--ink-soft);padding:50px 20px;font-size:15px}
+  footer{border-top:1px solid var(--line);padding:24px 0;color:var(--ink-soft);font-size:12.5px}
+  @media(max-width:820px){
+    .grid3,.spec-grid,.pg-grid,.form .two{grid-template-columns:1fr}
+    h1.title{font-size:27px}.count{width:100%;margin-left:0}
+    .brandrow img.logo{width:58px;height:58px}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brandrow">
+      <img class="logo" src="data:image/webp;base64,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" alt="NACST logo">
+      <div>
+        <div class="eyebrow">National Association of Clinician-Scientist Training (NACST) · Advising Toolkit</div>
+        <h1 class="title">Physician-Scientist Advising Toolkit</h1>
+      </div>
+    </div>
+    <p class="sub" style="margin-top:12px">A practical, evidence-based toolkit for MD-PhD students and program directors — to weigh specialties, training pathways, and funding; to search a national directory of MD-PhD programs and residency PSTPs; and to structure honest conversations about building a physician-scientist career.</p>
+    <p class="src">Built on the physician-scientist training literature — national MD-PhD outcomes (Brass &amp; Akabas, <a href="https://insight.jci.org/articles/view/133009" target="_blank" rel="noopener">JCI Insight</a> 2019) and ASCI/AAIM physician-scientist development work — plus the public NIH/NIGMS MSTP roster. See the Evidence base under the Advising Toolkit.</p>
+    <nav class="tabs" id="tabs">
+      <button data-v="overview" class="active">Overview</button>
+      <button data-v="programs">Program Directory</button>
+      <button data-v="specialties">Specialty Explorer</button>
+      <button data-v="advising">Advising Toolkit</button>
+      <button data-v="evidence">Outcomes &amp; Evidence</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="view active" id="overview">
+    <h2 class="sec">A toolkit for advising — and for being advised</h2>
+    <p class="lead">Choosing how to build a physician-scientist career is one of the hardest decisions in training, and it depends as much on the institution and pathway as on the specialty itself. This toolkit gives <strong>students</strong> a structured way to explore options and <strong>program directors and mentors</strong> a shared reference for advising — grounded in national outcomes data rather than any single program's experience.</p>
+
+    <div class="grid3">
+      <div class="card pad feature"><div class="num">FOR STUDENTS</div><h3>Explore and compare</h3>
+        <p>See how specialties differ in research integration, training length, lifestyle, and protected time; find which institutions run a residency PSTP in your specialty; and use a short reflection to surface fields worth exploring.</p></div>
+      <div class="card pad feature"><div class="num">FOR ADVISORS</div><h3>Advise with a shared map</h3>
+        <p>A common, evidence-based frame for conversations — decision factors, national tracks, funding mechanisms, and "what to ask programs" — plus a directory you and your trainees can extend with local detail and mentors.</p></div>
+      <div class="card pad feature"><div class="num">FOR EVERYONE</div><h3>Grounded in the data</h3>
+        <p>National MD-PhD outcomes (specialty distribution, research effort, time to independence) and the published guidance on PSTPs, K-awards, and the pathways workshop — cited in the Evidence base.</p></div>
+    </div>
+
+    <div class="statbar">
+      <div class="stat"><div class="v" id="stProg">—</div><div class="l">programs in the directory</div></div>
+      <div class="stat"><div class="v" id="stStates">—</div><div class="l">states + DC represented</div></div>
+      <div class="stat"><div class="v" id="stMstp">—</div><div class="l">MD-PhD programs</div></div>
+      <div class="stat"><div class="v" id="stPstp">—</div><div class="l">programs with a residency PSTP</div></div>
+    </div>
+
+  </section>
+
+  <section class="view" id="programs">
+    <h2 class="sec">National Program Directory</h2>
+    <p class="lead">MD-PhD programs and residency PSTPs in one place. Filter by state, program type, or PSTP specialty, and sort by name, state, or number of physician-scientist residency tracks. Students can find where to apply; you can add programs that aren't yet listed, along with the residency PSTPs they run and physician-scientist mentors.</p>
+    <div class="toolbar">
+      <input type="search" id="pgSearch" placeholder="Search program, city, or PSTP specialty…">
+      <select id="pgState"><option value="">All states</option></select>
+      <select id="pgStatus">
+        <option value="">All program types</option>
+        <option>MD-PhD program</option>
+        <option>Residency PSTP host</option>
+      </select>
+      <select id="pgPstp"><option value="">Any PSTP specialty</option></select>
+      <select id="pgSort">
+        <option value="name">Sort: name (A–Z)</option>
+        <option value="state">Sort: state</option>
+        <option value="pstp">Sort: most PSTPs</option>
+      </select>
+      <button class="btn accent" id="addBtn">+ Add a program</button>
+    </div>
+    <div class="toolbar" style="margin-top:-6px">
+      <button class="btn ghost sm" id="exportCsv">Export CSV</button>
+      <span class="count" id="pgStatusWrap"></span>
+    </div>
+    <div style="margin:-8px 0 14px"><span class="count" id="pgCount" style="margin:0"></span></div>
+    <div class="pg-grid" id="pgGrid"></div>
+    <div class="callout" style="margin-top:22px">
+      <strong>How the directory scales.</strong> Opened inside Claude, the directory uses a <em>shared</em> store, so a detail one advisor adds becomes visible to everyone using the toolkit. Anywhere else — or whenever the shared store is unavailable — it runs locally, and you can <em>Export</em> the directory to CSV to pool entries across programs: a practical path toward a maintained national resource under NACST or AAMC GREAT.
+    </div>
+    <div class="callout gold">
+      <strong>On the seed data.</strong> Program names, locations, founding years, and allied institutions come from the public MD-PhD program roster (★, verify locally). The residency-PSTP entries are a <em>partial, illustrative sample</em> — not a complete national PSTP registry. Add programs and their PSTPs with “+ Add a program,” and export the directory to CSV to pool entries across institutions.
+    </div>
+  </section>
+
+  <section class="view" id="specialties">
+    <h2 class="sec">Specialty Explorer</h2>
+    <p class="lead">How each specialty tends to support a research career, with the field's share of MD-PhD graduates and national outcomes where reported. Tap a card for the full profile and what to ask programs.</p>
+    <h3 style="font:600 20px var(--serif);margin:18px 0 6px">Start with a short reflection</h3>
+    <p class="lead" style="margin-bottom:16px">A framework-based reflection a student can complete alone or with a mentor. It doesn't pick a specialty — it surfaces fields worth exploring, with links straight into the profiles below. Answer what resonates; skip what doesn't.</p>
+    <div class="quiz" id="quiz"></div>
+    <div style="display:flex;gap:10px;margin:6px 0 22px">
+      <button class="btn accent" id="scoreBtn">See specialties to explore</button>
+      <button class="btn ghost" id="resetQuiz">Reset</button>
+    </div>
+    <div id="quizResult"></div>
+    <h3 style="font:600 20px var(--serif);margin:32px 0 6px">Compare specialties side by side</h3>
+    <p class="lead" style="margin-bottom:14px">Pick up to three specialties to line up their share of MD-PhD graduates, typical training length, research-track type, and protected-time culture in one view.</p>
+    <div class="cmp-chips" id="cmpChips"></div>
+    <div class="cmp-wrap" id="cmpTable"></div>
+    <h3 style="font:600 20px var(--serif);margin:32px 0 12px">Or browse all specialties</h3>
+    <div class="toolbar">
+      <input type="search" id="specSearch" placeholder="Search specialty or research area…">
+      <select id="specPop">
+        <option value="">All specialties</option>
+        <option value="common">Most common destinations</option>
+        <option value="rising">Rising</option>
+        <option value="special">Specialized track</option>
+        <option value="emerging">Emerging / non-traditional</option>
+      </select>
+      <select id="specPath">
+        <option value="">Research track: any</option>
+        <option value="yes">Has national / board track</option>
+        <option value="no">Institution-specific only</option>
+      </select>
+      <span class="count" id="specCount"></span>
+    </div>
+    <div class="spec-grid" id="specGrid"></div>
+    <p class="hint" style="margin-top:14px">Two different statistics appear here. <b>Share of MD-PhD graduates</b> (Akabas &amp; Brass, 2019) is what fraction of all MD-PhD grads enter a field. <b>MD-PhD density</b> (Emala, 2023) is what fraction of <em>entering residents in that field</em> are MD-PhD — highest in smaller residencies such as neurosurgery (7.2%), pathology (6.4%), and neurology (3.3%).</p>
+  </section>
+
+  <section class="view" id="advising">
+    <h2 class="sec">Advising Toolkit</h2>
+    <p class="lead">A reference for advising conversations: the factors that most shape long-term success, the structured research tracks, the funding mechanisms that protect research time, and where each fits across a career.</p>
+    <div class="callout gold"><strong>Why this matters.</strong> Physician-scientists are roughly 1.5% of the U.S. physician workforce, and the pipeline has been aging and contracting (NIH Physician-Scientist Workforce Report, 2014). MD-PhD graduates are about 3% of medical-school graduates yet make up close to half of NIH-funded physician-scientists (AAMC National MD-PhD Program Outcomes Study, 2018). Average time to both degrees rose from ~6.7 years (1975–84) to ~8.25 years (2005–14), and postgraduate training has lengthened as well.</div>
+    <div class="ref-block" style="margin-top:26px"><h3 style="font:600 18px var(--serif);margin:0 0 4px">The physician-scientist training arc</h3>
+      <p style="margin:0 0 16px;color:var(--ink-soft);font-size:13px;line-height:1.55">From college to research independence, with the funding mechanisms that protect research time at each step. Durations are typical and vary widely by specialty, research scope, and individual path — and postgraduate training has lengthened over recent decades.</p>
+      <div class="arc">
+        <div class="arc-stage" style="border-top-color:var(--steel)">
+          <div class="arc-top"><span class="arc-num" style="background:var(--steel)">1</span><span class="arc-dur">~4 yrs</span></div>
+          <div class="arc-title">Undergraduate</div>
+          <div class="arc-desc">Research exposure, mentorship, and prerequisites. Gap years for full-time research are increasingly common before applying.</div>
+        </div>
+        <div class="arc-stage" style="border-top-color:var(--accent-2)">
+          <div class="arc-top"><span class="arc-num" style="background:var(--accent-2)">2</span><span class="arc-dur">~7–8 yrs</span></div>
+          <div class="arc-title">MD-PhD (MSTP)</div>
+          <div class="arc-desc">Integrated medical and graduate training: preclinical years, the PhD, then a return to clinics. Average time to both degrees is now ~8 years.</div>
+          <div class="arc-flabel">Funding</div>
+          <div class="arc-fund"><span class="arc-tag">F30 / F31</span><span class="arc-tag">MSTP T32</span></div>
+        </div>
+        <div class="arc-stage" style="border-top-color:var(--accent)">
+          <div class="arc-top"><span class="arc-num" style="background:var(--accent)">3</span><span class="arc-dur">3–7 yrs</span></div>
+          <div class="arc-title">Residency &nbsp;±&nbsp; PSTP</div>
+          <div class="arc-desc">Clinical specialty training. Physician-scientist tracks (PSTPs) and research-track residencies shorten clinical time and protect research blocks.</div>
+          <div class="arc-flabel">Funding / tracks</div>
+          <div class="arc-fund"><span class="arc-tag">R38 / StARR</span><span class="arc-tag">R25</span><span class="arc-tag">ABIM · ABP · Holman</span></div>
+        </div>
+        <div class="arc-stage" style="border-top-color:var(--teal)">
+          <div class="arc-top"><span class="arc-num" style="background:var(--teal)">4</span><span class="arc-dur">2–4 yrs</span></div>
+          <div class="arc-title">Fellowship &nbsp;±&nbsp; research</div>
+          <div class="arc-desc">Subspecialty training, often with dedicated protected research time that bridges toward an independent program.</div>
+          <div class="arc-flabel">Funding</div>
+          <div class="arc-fund"><span class="arc-tag">Institutional T32</span><span class="arc-tag">F32</span><span class="arc-tag">FAER &amp; foundations</span></div>
+        </div>
+        <div class="arc-stage" style="border-top-color:var(--teal-2)">
+          <div class="arc-top"><span class="arc-num" style="background:var(--teal-2)">5</span><span class="arc-dur">~3–5 yrs</span></div>
+          <div class="arc-title">Early faculty — mentored</div>
+          <div class="arc-desc">The first independent position with a mentored career-development award protecting majority research effort while building a portfolio.</div>
+          <div class="arc-flabel">Funding</div>
+          <div class="arc-fund"><span class="arc-tag">K08 / K23</span><span class="arc-tag">K99 → R00</span><span class="arc-tag">KL2</span><span class="arc-tag">LRP</span></div>
+        </div>
+        <div class="arc-stage" style="border-top-color:var(--gold)">
+          <div class="arc-top"><span class="arc-num" style="background:var(--gold)">6</span><span class="arc-dur">ongoing</span></div>
+          <div class="arc-title">Research independence</div>
+          <div class="arc-desc">Independent investigator status, sustained by competitive research-project grants — the milestone the earlier mechanisms are designed to reach.</div>
+          <div class="arc-flabel">Funding</div>
+          <div class="arc-fund"><span class="arc-tag">R01 &amp; beyond</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="ref-block"><h3 style="font:600 18px var(--serif);margin:0 0 10px">Key decision factors</h3>
+      <table class="ref"><thead><tr><th>Factor</th><th>Why it matters</th><th>Potential red flags</th></tr></thead><tbody id="factorBody"></tbody></table></div>
+    <div class="ref-block"><h3 style="font:600 18px var(--serif);margin:0 0 10px">National &amp; board research tracks</h3>
+      <table class="ref"><thead><tr><th>Pathway</th><th>Specialty</th><th>What it offers</th></tr></thead><tbody id="pathTrackBody"></tbody></table></div>
+    <div class="ref-block"><h3 style="font:600 18px var(--serif);margin:0 0 10px">Funding &amp; protected-time mechanisms</h3>
+      <table class="ref"><thead><tr><th>Mechanism</th><th>Stage</th><th>Purpose</th></tr></thead><tbody id="fundBody"></tbody></table></div>
+    <div class="ref-block"><h3 style="font:600 18px var(--serif);margin:0 0 10px">Career stages &amp; what shifts</h3>
+      <table class="ref"><thead><tr><th>Stage</th><th>Primary focus</th><th>Opportunities</th></tr></thead><tbody id="stageBody"></tbody></table></div>
+    <div class="ref-block"><h3 style="font:600 18px var(--serif);margin:0 0 4px">Questions to ask any program</h3>
+      <p style="margin:0 0 4px;color:var(--ink-soft);font-size:13px;line-height:1.55">A general checklist an advisor can hand a student — for residencies, fellowships, or any physician-scientist training step. It complements the specialty-specific prompts in the Specialty Explorer. (Checkboxes are for working through in the moment and reset on reload.)</p>
+      <div class="qa-wrap">
+        <div class="qa-group"><h4>Protected research time</h4>
+          <ul class="qa-list">
+            <li class="qa-item"><input type="checkbox">How much protected research time is guaranteed, and is it in writing?</li>
+            <li class="qa-item"><input type="checkbox">Which research-track or physician-scientist pathway is offered (e.g., ABIM / ABP / Holman, R38 / StARR, institutional T32)?</li>
+            <li class="qa-item"><input type="checkbox">How is research time defended against clinical, call, and service demands?</li>
+          </ul></div>
+        <div class="qa-group"><h4>Mentorship</h4>
+          <ul class="qa-list">
+            <li class="qa-item"><input type="checkbox">Who would my mentors be, and do they hold active R / K funding?</li>
+            <li class="qa-item"><input type="checkbox">How are mentor matches made, and is there a mentoring committee?</li>
+            <li class="qa-item"><input type="checkbox">Is there a community of physician-scientist peers and near-peer mentors (e.g., PSTP residents)?</li>
+          </ul></div>
+        <div class="qa-group"><h4>Funding &amp; track record</h4>
+          <ul class="qa-list">
+            <li class="qa-item"><input type="checkbox">What is the recent record of trainees obtaining K-awards (K08 / K23) and moving to R-funding?</li>
+            <li class="qa-item"><input type="checkbox">What bridge or institutional funding exists between awards?</li>
+            <li class="qa-item"><input type="checkbox">Is there support for the Loan Repayment Program (LRP) and grant-writing?</li>
+          </ul></div>
+        <div class="qa-group"><h4>Structure &amp; outcomes</h4>
+          <ul class="qa-list">
+            <li class="qa-item"><input type="checkbox">What is the typical time to an independent position from here?</li>
+            <li class="qa-item"><input type="checkbox">Where are recent physician-scientist graduates now, and what share stay research-active?</li>
+            <li class="qa-item"><input type="checkbox">How many physician-scientist trainees are enrolled, and what is attrition like?</li>
+          </ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="evidence">
+    <h2 class="sec">National Outcomes &amp; Evidence Base</h2>
+    <p class="lead">The data behind the toolkit: national MD-PhD outcomes, the published guidance this resource draws on, and where to look up institution-level funding.</p>
+    <div class="callout"><strong>National MD-PhD outcomes (Brass &amp; Akabas, JCI Insight 2019).</strong> From the national study of 10,591 graduates of 80 MD-PhD programs:
+      <ul>
+        <li>~60% of graduates train in internal medicine, pathology, or pediatrics; another ~25% in neurology, surgery, psychiatry, or radiology.</li>
+        <li>Weighted across responders and non-responders, ~71% work in academia, the NIH, research institutes, or industry; ~24% in private practice.</li>
+        <li>Among full-time academic alumni, 63% hold research grants — rising to 87% for those with ≥50% research effort.</li>
+        <li>Share reporting ≥50% research effort ranges from ~10% (family medicine, orthopedic surgery) to &gt;50% (neurology, internal medicine, pediatrics, pediatric neurology).</li>
+        <li>Anesthesiology had the shortest time to a first academic position; surgery the longest.</li>
+      </ul>
+    </div>
+    <div class="ref-block" style="margin-top:26px"><h3 style="font:600 18px var(--serif);margin:0 0 10px">Evidence base &amp; further reading</h3>
+      <div class="reflist" id="refList"></div></div>
+    <div class="callout"><strong>Two databases worth knowing.</strong> The <a href="https://brimr.org/" target="_blank" rel="noopener">Blue Ridge Institute for Medical Research</a> compiles NIH funding by institution, department, and specialty. <a href="https://reporter.nih.gov/" target="_blank" rel="noopener">NIH RePORTER</a> finds T32 grants, R01-funded investigators, and K-to-R transitions at programs of interest.</div>
+  </section>
+
+</main>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer">
+  <header><button class="close" id="drawerClose">×</button><span class="tag" id="dTag"></span><h3 id="dName"></h3></header>
+  <div class="body" id="dBody"></div>
+</aside>
+
+<div class="modal" id="modal">
+  <div class="sheet">
+    <header><h3 id="modalTitle">Add a program</h3></header>
+    <div class="form">
+      <div><label>Program / institution</label><input type="text" id="fName" placeholder="University of …"></div>
+      <div class="two">
+        <div><label>City</label><input type="text" id="fCity" placeholder="City"></div>
+        <div><label>State</label><input type="text" id="fState" placeholder="ST"></div>
+      </div>
+      <div class="two">
+        <div><label>Program type</label>
+          <select id="fStatus"><option>MD-PhD program</option><option>Residency PSTP host</option></select></div>
+        <div><label>Degree</label>
+          <select id="fDegree"><option>MD-PhD</option><option>DVM-PhD</option><option>DO-PhD</option><option>Residency PSTP</option></select></div>
+      </div>
+      <div class="two">
+        <div><label>Founded (year)</label><input type="text" id="fFounded" placeholder="e.g., 1976"></div>
+        <div><label>Approx. class size / yr</label><input type="text" id="fClass" placeholder="e.g., 10–12"></div>
+      </div>
+      <div><label>Residency PSTP specialties</label><input type="text" id="fPstps" placeholder="e.g., Internal Medicine; Pediatrics; Psychiatry">
+        <div class="hint">Specialties in which this institution runs a physician-scientist residency track. Separate with semicolons.</div></div>
+      <div><label>Allied / partner PhD institutions</label><input type="text" id="fAllied" placeholder="e.g., Caltech"></div>
+      <div><label>Research strengths</label><input type="text" id="fStrength" placeholder="e.g., immunology; neuroscience; cancer biology"></div>
+      <div><label>Physician-scientist mentors / seminar contacts</label><textarea id="fMentors" rows="2" placeholder="Faculty open to shadowing, advising, or speaking; seminar-series contact"></textarea>
+        <div class="hint">Role-model exposure — list people who are aware they're included, or whose role is already public.</div></div>
+      <div><label>Website / link — optional</label><input type="text" id="fWeb" placeholder="https://…"></div>
+      <div class="actions"><button class="btn ghost" id="cancelBtn">Cancel</button><button class="btn" id="saveBtn">Save</button></div>
+    </div>
+  </div>
+</div>
+
+<footer class="wrap">
+  An advising toolkit for the NACST community · specialty framework after Swartz et&nbsp;al., “Navigating the Path” (2026, CC&nbsp;BY 4.0); national outcomes © 2019 ASCI (Brass &amp; Akabas) · MD-PhD roster from the public NIH/NIGMS MSTP list and residency-PSTP entries are an illustrative sample — verify locally before advising · not an official registry.
+</footer>
+
+<script>
+const PROG_SEED_ROWS = [
+["Albert Einstein College of Medicine","Bronx","NY","MD-PhD","MD-PhD program",1964,""],
+["Baylor College of Medicine","Houston","TX","MD-PhD","MD-PhD program",1976,"Rice University"],
+["Beth Israel Deaconess Medical Center (Harvard-affiliated)","Boston","MA","Residency PSTP","Residency PSTP host","",""],
+["Boston University","Boston","MA","MD-PhD","MD-PhD program",2025,""],
+["Case Western Reserve University","Cleveland","OH","MD-PhD","MD-PhD program",1975,"Cleveland Clinic"],
+["Children's National Hospital","Washington","DC","Residency PSTP","Residency PSTP host","",""],
+["Colorado State University","Fort Collins","CO","DVM-PhD","MD-PhD program",2020,""],
+["Columbia University","New York","NY","MD-PhD","MD-PhD program",1969,""],
+["Cornell University (Tri-Institutional)","New York","NY","MD-PhD","MD-PhD program",1974,"Memorial Sloan Kettering; The Rockefeller University"],
+["Duke University","Durham","NC","MD-PhD","MD-PhD program",1966,""],
+["Emory University","Atlanta","GA","MD-PhD","MD-PhD program",1976,"Georgia Institute of Technology"],
+["Harvard Medical School (Harvard/MIT)","Boston","MA","MD-PhD","MD-PhD program",1974,"Massachusetts Institute of Technology"],
+["Indiana University","Indianapolis","IN","MD-PhD","MD-PhD program",1993,"Purdue University"],
+["Johns Hopkins University","Baltimore","MD","MD-PhD","MD-PhD program",1975,""],
+["Mass General Brigham (Harvard-affiliated)","Boston","MA","Residency PSTP","Residency PSTP host","",""],
+["Mayo Clinic College of Medicine and Science","Rochester","MN","MD-PhD","MD-PhD program",1986,""],
+["Medical College of Wisconsin","Milwaukee","WI","MD-PhD","MD-PhD program",2010,""],
+["Medical University of South Carolina","Charleston","SC","MD-PhD","MD-PhD program",1999,""],
+["Icahn School of Medicine at Mount Sinai","New York","NY","MD-PhD","MD-PhD program",1976,""],
+["Northwestern University (Feinberg)","Chicago","IL","MD-PhD","MD-PhD program",1964,""],
+["NYU Grossman School of Medicine","New York","NY","MD-PhD","MD-PhD program",1964,""],
+["Oregon Health & Science University","Portland","OR","MD-PhD","MD-PhD program",1982,""],
+["Penn State University","Hershey","PA","MD-PhD","MD-PhD program",2016,""],
+["Stanford University","Stanford","CA","MD-PhD","MD-PhD program",1968,""],
+["Stony Brook University","Stony Brook","NY","MD-PhD","MD-PhD program",1992,"Cold Spring Harbor Laboratory; Brookhaven National Laboratory"],
+["Ohio State University","Columbus","OH","MD-PhD","MD-PhD program",2011,""],
+["Tufts University","Boston","MA","MD-PhD","MD-PhD program",1994,""],
+["University of Alabama at Birmingham","Birmingham","AL","MD-PhD","MD-PhD program",1992,""],
+["University of Arizona","Tucson","AZ","MD-PhD","MD-PhD program",1990,""],
+["University of California, Davis","Davis","CA","MD-PhD","MD-PhD program",2020,""],
+["University of California, Irvine","Irvine","CA","MD-PhD","MD-PhD program",1999,""],
+["University of California, Los Angeles","Los Angeles","CA","MD-PhD","MD-PhD program",1983,"California Institute of Technology"],
+["University of California, San Diego","La Jolla","CA","MD-PhD","MD-PhD program",1975,"Salk Institute; Scripps Research; Sanford Burnham Prebys"],
+["University of California, San Francisco","San Francisco","CA","MD-PhD","MD-PhD program",1977,"UC Berkeley"],
+["University of Chicago","Chicago","IL","MD-PhD","MD-PhD program",1968,""],
+["University of Cincinnati","Cincinnati","OH","MD-PhD","MD-PhD program",2002,"Cincinnati Children's Hospital Medical Center"],
+["University of Colorado","Aurora","CO","MD-PhD","MD-PhD program",1993,"CU Boulder; National Jewish Health"],
+["University of Illinois Chicago","Chicago","IL","MD-PhD","MD-PhD program",2007,""],
+["University of Iowa (Carver)","Iowa City","IA","MD-PhD","MD-PhD program",1976,""],
+["University of Kansas Medical Center","Kansas City","KS","MD-PhD","MD-PhD program",2020,"Stowers Institute for Medical Research"],
+["University of Maryland, Baltimore","Baltimore","MD","MD-PhD","MD-PhD program",2010,"UMD College Park; NIH Intramural Research Program"],
+["University of Massachusetts (Chan)","Worcester","MA","MD-PhD","MD-PhD program",2013,""],
+["University of Miami (Miller)","Miami","FL","MD-PhD","MD-PhD program",2017,""],
+["University of Michigan","Ann Arbor","MI","MD-PhD","MD-PhD program",1980,""],
+["University of Minnesota","Minneapolis","MN","MD-PhD","MD-PhD program",1988,""],
+["University of Nebraska Medical Center","Omaha","NE","MD-PhD","MD-PhD program",2024,""],
+["University of New Mexico","Albuquerque","NM","MD-PhD","MD-PhD program",2024,""],
+["University of North Carolina at Chapel Hill","Chapel Hill","NC","MD-PhD","MD-PhD program",1999,"North Carolina State University"],
+["University of Pennsylvania","Philadelphia","PA","MD-PhD","MD-PhD program",1969,"Children's Hospital of Philadelphia"],
+["University of Pittsburgh","Pittsburgh","PA","MD-PhD","MD-PhD program",1987,"Carnegie Mellon University"],
+["University of Rochester","Rochester","NY","MD-PhD","MD-PhD program",1973,""],
+["UTHealth Houston (McGovern)","Houston","TX","MD-PhD","MD-PhD program",2018,"UT MD Anderson Cancer Center"],
+["UT Health San Antonio (Long)","San Antonio","TX","MD-PhD","MD-PhD program",2018,"Texas Biomedical Research Institute"],
+["UT Southwestern","Dallas","TX","MD-PhD","MD-PhD program",1982,""],
+["University of Utah","Salt Lake City","UT","MD-PhD","MD-PhD program",2023,""],
+["University of Virginia","Charlottesville","VA","MD-PhD","MD-PhD program",1976,""],
+["University of Washington","Seattle","WA","MD-PhD","MD-PhD program",1970,"Fred Hutchinson Cancer Center; Seattle Children's Research Institute"],
+["University of Wisconsin–Madison","Madison","WI","MD-PhD","MD-PhD program",1968,""],
+["Vanderbilt University","Nashville","TN","MD-PhD","MD-PhD program",1976,""],
+["Virginia Commonwealth University","Richmond","VA","MD-PhD","MD-PhD program",2022,""],
+["Washington University in St. Louis","St. Louis","MO","MD-PhD","MD-PhD program",1969,""],
+["Yale University","New Haven","CT","MD-PhD","MD-PhD program",1969,""]
+];
+const PSTP_MAP = {
+  "Icahn School of Medicine at Mount Sinai":["Internal Medicine","Pediatrics","Psychiatry","Anesthesiology","Otolaryngology","Neurological Surgery"],
+  "University of California, Los Angeles":["Internal Medicine"],
+  "University of California, San Francisco":["Internal Medicine","Pathology"],
+  "University of California, San Diego":["Internal Medicine"],
+  "Duke University":["Internal Medicine"],
+  "Stanford University":["Internal Medicine"],
+  "University of Massachusetts (Chan)":["Internal Medicine"],
+  "UT Southwestern":["Internal Medicine","Pathology"],
+  "Washington University in St. Louis":["Pathology"],
+  "University of Colorado":["Pathology"],
+  "Northwestern University (Feinberg)":["Internal Medicine"],
+  "Vanderbilt University":["Internal Medicine"],
+  "Yale University":["Internal Medicine","Psychiatry"],
+  "NYU Grossman School of Medicine":["Internal Medicine","Psychiatry"],
+  "University of Pennsylvania":["Pediatrics"],
+  "Mass General Brigham (Harvard-affiliated)":["Internal Medicine","Neurology","Psychiatry","Pathology","Dermatology"],
+  "Beth Israel Deaconess Medical Center (Harvard-affiliated)":["Psychiatry"],
+  "Children's National Hospital":["Pediatrics"]
+};
+// Official MD-PhD / MSTP program pages. Source: NACST program directory
+// (mdphdassociation.org) plus direct verification. Programs without a verified
+// link fall back to a web search (see searchLink).
+const WEB_MAP = {
+  "Baylor College of Medicine":"https://www.bcm.edu/education/education-programs/m-d-ph-d-program",
+  "Boston University":"https://www.bumc.bu.edu/gms/students/mdphd/",
+  "Case Western Reserve University":"https://mstp.cwru.edu/",
+  "Columbia University":"https://www.cumc.columbia.edu/mdphd",
+  "Cornell University (Tri-Institutional)":"https://www.med.cornell.edu/mdphd/",
+  "Duke University":"https://medschool.duke.edu/education/degree-programs-and-admissions/medical-scientist-training-program",
+  "Emory University":"https://www.med.emory.edu/education/MDPHD/",
+  "Harvard Medical School (Harvard/MIT)":"https://www.hms.harvard.edu/md_phd/index.html",
+  "Indiana University":"https://grad.medicine.iu.edu/degree-programs/combined-degrees/mdphd/",
+  "Johns Hopkins University":"https://www.hopkinsmedicine.org/mdphd/",
+  "Mayo Clinic College of Medicine and Science":"https://www.mayo.edu/mgs/programs/medical-scientist-training-program",
+  "Icahn School of Medicine at Mount Sinai":"https://icahn.mssm.edu/education/dual-specialty/md-phd",
+  "Northwestern University (Feinberg)":"https://mstp.northwestern.edu/",
+  "Oregon Health & Science University":"https://www.ohsu.edu/mdphd",
+  "Penn State University":"https://med.psu.edu/md-phd/details",
+  "Stanford University":"https://med.stanford.edu/mstp.html",
+  "Stony Brook University":"https://medicine.stonybrookmedicine.edu/mstp",
+  "Ohio State University":"https://medicine.osu.edu/mstp/Pages/index.aspx",
+  "University of Alabama at Birmingham":"https://www.uab.edu/medicine/mstp/",
+  "University of Arizona":"https://mdphd.medicine.arizona.edu/",
+  "University of California, Irvine":"https://mstp.uci.edu/",
+  "University of California, Los Angeles":"https://mstp.healthsciences.ucla.edu/",
+  "University of California, San Diego":"https://meded.ucsd.edu/mstp/",
+  "University of California, San Francisco":"https://mstp.ucsf.edu/",
+  "University of Chicago":"https://pritzker.uchicago.edu/page/mstp-medical-scientist-training-program",
+  "University of Iowa (Carver)":"https://www.healthcare.uiowa.edu/mstp/",
+  "University of Kansas Medical Center":"https://www.kumc.edu/mdphd",
+  "University of Maryland, Baltimore":"https://mdphd.umaryland.edu/",
+  "University of Massachusetts (Chan)":"https://www.umassmed.edu/mdphd/index.aspx",
+  "University of Miami (Miller)":"https://med.miami.edu/graduate-studies/doctoral-programs/medical-scientist-training-program",
+  "University of Michigan":"https://medicine.umich.edu/medschool/education/md-phd-program",
+  "University of Minnesota":"https://www.med.umn.edu/mdphd/",
+  "University of Nebraska Medical Center":"https://www.unmc.edu/mdphd",
+  "University of North Carolina at Chapel Hill":"https://www.med.unc.edu/mdphd/",
+  "University of Pennsylvania":"https://www.med.upenn.edu/mstp/",
+  "University of Pittsburgh":"https://www.mdphd.pitt.edu/",
+  "University of Rochester":"https://www.urmc.edu/smd/mstp/",
+  "UTHealth Houston (McGovern)":"https://gsbs.uth.edu/mdphd/",
+  "UT Southwestern":"https://www.utsouthwestern.edu/education/graduate-school/programs/mstp/",
+  "University of Utah":"https://medicine.utah.edu/programs/combined/md-phd",
+  "University of Virginia":"https://med.virginia.edu/mstp/",
+  "University of Washington":"https://mstp.washington.edu/",
+  "University of Wisconsin–Madison":"https://www.med.wisc.edu/education/md-phd/",
+  "Vanderbilt University":"https://medschool.vanderbilt.edu/md/mstp/",
+  "Washington University in St. Louis":"https://mstp.wustl.edu/",
+  "Yale University":"https://medicine.yale.edu/mdphd/"
+};
+const PROG_SEED = PROG_SEED_ROWS.map(r=>({
+  name:r[0],city:r[1],state:r[2],degree:r[3],status:r[4],founded:r[5],allied:r[6],
+  pstps:(PSTP_MAP[r[0]]||[]).slice(), strength:"",mentors:"",classSize:"",web:(WEB_MAP[r[0]]||""),seed:true
+}));
+
+const SPECIALTIES = [
+  {name:"Internal Medicine",pop:"common",grad:27,gradLabel:"27%",density:null,pathway:"ABIM Research Pathway",pathwayShort:true,length:"3 yr categorical; the Research Pathway brings board eligibility by PGY-4/5 and an earlier move to protected research",lifestyle:"Broad; inpatient/outpatient, chronic disease management; subspecialty-dependent.",protected:"Strongest, most established protected-time culture; well supported by K-awards and T32s.",integNote:"Deepest, most structured research infrastructure of any field; the most common MD-PhD destination.",outcome:"Among the highest research engagement: &gt;50% of alumni report ≥50% research effort (Brass &amp; Akabas, 2019).",align:["Immunology","Infectious diseases","Cardiovascular disease","Cancer biology","Respiratory disease","GI pathophysiology"],ask:["Does the program enroll in the ABIM Research Pathway, and how many short-track each year?","Track record of graduates moving from K-awards to R-funding?"]},
+  {name:"Pediatrics",pop:"common",grad:13,gradLabel:"13%",density:null,pathway:"ABP Integrated Research Pathway",pathwayShort:true,length:"3 yr; the Integrated Research Pathway shortens clinical time before fellowship research",lifestyle:"Outpatient and inpatient; developmental, longitudinal focus.",protected:"Well-established; subspecialty fellowships frequently embed research.",integNote:"Historically strong, structured research pathways; the second most common destination.",outcome:"High research engagement; pediatric neurology had the highest share in academia (85%) in the national study (Brass &amp; Akabas, 2019).",align:["Developmental biology","Cancer biology","Infectious disease","Immunology","Inborn errors of metabolism","Genetics of rare disease"],ask:["Is the ABP Integrated Research Pathway available?","Which divisions have active mentors and T32 support?"]},
+  {name:"Surgery",pop:"common",grad:12,gradLabel:"12%",density:null,pathway:"Institution-specific research years / T32 positions",pathwayShort:false,length:"5+ yr; many programs include ~2 dedicated research years",lifestyle:"Procedural, high-intensity, acute care; case volume needed to maintain skills.",protected:"Built-in research years are common, but procedural-volume needs and urgent OR schedules pressure protected time. NIH K-awards let actively operating surgeon-scientists request a reduced 50% effort.",integNote:"A larger destination overall; sustaining protected time after training is the central challenge.",outcome:"Longest time to a first academic position; neurosurgery and orthopedic surgery report the least research time (Brass &amp; Akabas, 2019).",align:["Transplantation / immunology","Surgical oncology","Regenerative medicine","Trauma / acute care / sepsis","Vascular surgery","Wound healing"],ask:["How many protected research years, and what funds them?","Given the 50% K-award effort option for surgeons, how is research time protected after training?"]},
+  {name:"Pathology",pop:"common",grad:10,gradLabel:"10%",density:6.4,pathway:"ABPath Physician-Scientist Research Pathway",pathwayShort:true,length:"3–4 yr (AP/CP combinations vary); CP-only can be as short as 2 yr",lifestyle:"Laboratory-based diagnostics and molecular testing; predictable schedules, little acute call.",protected:"Lab-based research integrates seamlessly into clinical work; NIH and industry funding common.",integNote:"Among the highest MD-PhD density when normalized to residency size; research integrates naturally.",outcome:"High entry but, as a group, reported lower research effort than internal medicine — an outlier in the national study (Brass &amp; Akabas, 2019).",align:["Cancer biology","Molecular diagnostics","Immunopathology","Broad pathophysiology"],ask:["Does the program use the ABPath Physician-Scientist Research Pathway?","How is research time protected against sign-out load?"]},
+  {name:"Neurology",pop:"common",grad:9,gradLabel:"9%",density:3.3,pathway:"Research tracks at many programs (incl. combined Neurology–Psychiatry research training)",pathwayShort:false,length:"4 yr (incl. intern year)",lifestyle:"Inpatient and outpatient; complex chronic disease; Neuro-ICU and procedural tracks exist.",protected:"Strong clinician-investigator tradition; many programs build in protected research.",integNote:"High normalized MD-PhD density; strong neuroscience and translational base.",outcome:"Among the highest research engagement: &gt;50% of alumni report ≥50% research effort (Brass &amp; Akabas, 2019).",align:["Neuroscience","Stroke","Neurodegeneration","Neuroimmunology","Epilepsy","Movement disorders"],ask:["Is the research track formal or individually negotiated?","Which faculty actively mentor resident research and hold R/K funding?"]},
+  {name:"Radiology",pop:"common",grad:5,gradLabel:"5%",density:null,pathway:"ABR Holman Research Pathway (NIBIB T32s at some programs)",pathwayShort:true,length:"Diagnostic radiology 5 yr; Holman restructures time toward research",lifestyle:"Technology-driven, imaging-based diagnosis; interventional/procedural and targeted-therapy tracks; generally predictable.",protected:"Holman Pathway formally reallocates training time to research.",integNote:"Strong imaging-science, engineering, and AI research base.",outcome:null,align:["Imaging & image-guided therapy methods","Biomedical engineering","Molecular imaging & therapy","AI / imaging informatics"],ask:["Is the Holman Pathway offered and recently used?","Is the underlying science durable, or fast-moving tech that may shift by independence?"]},
+  {name:"Psychiatry",pop:"rising",grad:5,gradLabel:"5%",density:null,pathway:"Institution-specific neuropsychiatric research tracks",pathwayShort:false,length:"4 yr",lifestyle:"Outpatient-focused, long-term patient care.",protected:"Several programs offer research-focused training; NIMH funding available.",integNote:"Rising interest; strong neuroscience and translational opportunities.",outcome:null,align:["Neuroscience","Neuropsychiatric disorders","Addiction research"],ask:["Is there a research-track residency?","Which mentors bridge clinical psychiatry and basic neuroscience?"]},
+  {name:"Dermatology",pop:"rising",grad:3,gradLabel:"3%",density:null,pathway:"Institution-specific research fellowships / integrated tracks",pathwayShort:false,length:"4 yr (incl. intern year)",lifestyle:"Outpatient with inpatient consults; small and large procedures; mix of cutaneous oncology, immunology, autoimmunity, aesthetics.",protected:"NIH, foundation, and industry funding (incl. career-development awards); predictable schedule favors protected research.",integNote:"Rising among MD-PhD graduates; accessible tissue for translational work.",outcome:null,align:["Immunology","Microbiology","Skin cancer","Stem & stromal cell biology","AI","Epidemiology / health disparities"],ask:["Is there a dedicated physician-scientist track?","Is there a translational pipeline you can plug into?"]},
+  {name:"Anesthesiology",pop:"rising",grad:null,gradLabel:null,density:null,pathway:"Institution-specific tracks; departmental T32s; FAER support",pathwayShort:false,length:"4 yr (incl. intern year)",lifestyle:"Clearly defined schedules; off-duty time can be uninterrupted research time.",protected:"Shift structure can protect research; departmental T32s and FAER support growing (Anesthesia Research Council).",integNote:"Growing pipeline with structured tracks emerging; not separately tabulated in the 2019 graduate data.",outcome:"~75% of alumni in academia full-time but only ~21% report ≥50% research effort; shortest time to a first academic position (Brass &amp; Akabas, 2019).",align:["Pain & nociception","Critical care biology","Pharmacology","Perioperative outcomes"],ask:["Does the department hold a T32 / FAER-supported track?","How does shift structure translate into usable research blocks?"]},
+  {name:"Neurosurgery",pop:"special",grad:null,gradLabel:null,density:7.2,pathway:"Institution-specific research years",pathwayShort:false,length:"7 yr; many programs include 1–2 research years",lifestyle:"Long hours, heavy call, sustained procedural demands.",protected:"Built-in research years exist; sustaining bench time later is challenging.",integNote:"Highest normalized MD-PhD density of any specialty, despite the longest training (counted within Surgery in the 2019 graduate data).",outcome:"Reports much less research time than internal medicine despite high MD-PhD density (Brass &amp; Akabas, 2019).",align:["Neuro-oncology","Functional / device neuroscience","Spinal cord injury","Brain–machine interface"],ask:["How many protected research years are guaranteed?","Faculty model for sustaining research after residency?"]},
+  {name:"Radiation Oncology",pop:"special",grad:4,gradLabel:"4%",density:null,pathway:"ACGME Holman Research Pathway",pathwayShort:true,length:"Procedural, oncology-focused; dedicated research time varies by program",lifestyle:"Procedural, oncology-focused, technology-driven.",protected:"NIH and private cancer funding; translational/clinical research integrated into practice.",integNote:"Strong, well-funded cancer-research base with a formal research pathway.",outcome:"MD-PhD alumni are more likely to choose radiation oncology than MD-only graduates (Brass &amp; Akabas, 2019).",align:["Cancer biology","Radiation therapy research"],ask:["Is the Holman Pathway used here?","How much dedicated research time is built in?"]},
+  {name:"Ophthalmology",pop:"special",grad:4,gradLabel:"4%",density:null,pathway:"Institution-specific integrated research training",pathwayShort:false,length:"Residency incl. intern year; research training varies by program",lifestyle:"Procedural, vision-focused, outpatient.",protected:"NEI (NIH) funding strong; vision-science research well supported.",integNote:"Well-supported vision-science research; an established but smaller MD-PhD pipeline.",outcome:"MD-PhD alumni are more likely to choose ophthalmology than MD-only graduates, though reported research effort is lower than internal medicine (Brass &amp; Akabas, 2019).",align:["Vision science","Retinal disease","Corneal research"],ask:["Is integrated research training offered?","Which faculty hold NEI funding and mentor residents?"]},
+  {name:"Medical Genetics",pop:"special",grad:1,gradLabel:"1%",density:null,pathway:"ABMGG certification pathways (often combined with IM, Peds, or Ob/Gyn)",pathwayShort:false,length:"Varies; frequently combined with another specialty",lifestyle:"Consultation-based, highly specialized.",protected:"Strong NIH and industry support; translational genomics and precision medicine expanding rapidly.",integNote:"Small but rapidly expanding; a natural fit for genomics-focused physician-scientists.",outcome:"~76% of alumni in academia full-time and ~67% report ≥50% research effort — among the highest research engagement (Brass &amp; Akabas, 2019).",align:["Genomics","Rare disease research","Precision medicine"],ask:["Which combined pathway (IM/Peds/Ob-Gyn) fits your research?","Where is the translational genomics infrastructure?"]},
+  {name:"Emergency Medicine",pop:"emerging",grad:null,gradLabel:null,density:null,pathway:"Institution-specific tracks (developing)",pathwayShort:false,length:"3–4 yr",lifestyle:"Shift-based; defined schedules with uninterrupted off-duty time.",protected:"Fewer built-in mechanisms historically; shift structure can be leveraged; R38/StARR increasingly used.",integNote:"Less-traveled but developing institutional pathways.",outcome:"MD-PhD graduates are less likely to choose emergency medicine than MD-only graduates (Brass &amp; Akabas, 2019).",align:["Resuscitation science","Critical care","Epidemiology / outcomes","Public health"],ask:["Research-track residents and recent K-award examples?","How is research time funded and protected?"]},
+  {name:"Obstetrics/Gynecology",pop:"emerging",grad:0.5,gradLabel:"<1%",density:null,pathway:"Some research tracks / fellowships (e.g., maternal-fetal medicine)",pathwayShort:false,length:"4 yr",lifestyle:"Procedural and medical; maternal-fetal focus.",protected:"Research exists in MFM and gyn-onc, but protected research time is limited.",integNote:"Non-traditional for MD-PhDs, with pockets of strong research in subspecialties.",outcome:null,align:["Reproductive biology","Maternal-fetal medicine","Gynecologic oncology"],ask:["Which subspecialty offers the research infrastructure you need?","What protected time is realistic here?"]},
+  {name:"Family Medicine",pop:"emerging",grad:0.5,gradLabel:"<1%",density:null,pathway:"Limited formal research tracks",pathwayShort:false,length:"3 yr",lifestyle:"Outpatient primary care; broad-spectrum.",protected:"Few research-intensive pathways; NIH funding uncommon — approach with care.",integNote:"Non-traditional for MD-PhDs; research opportunities are scarce.",outcome:"Lowest research engagement in the national study — only ~10% report ≥50% research effort and ~31% are in academia (Brass &amp; Akabas, 2019).",align:["Community health","Health disparities","Preventive medicine"],ask:["Is there real academic research infrastructure here?","What concrete support exists, given the scarcity?"]}
+];
+const GRAD_MAX = 27;
+const PSTP_ALIAS = {"Neurosurgery":"Neurological Surgery"};
+
+const DECISION_FACTORS = [
+  ["Alignment of specialty with research focus","Sustained success depends on generating clinically informed research questions and access to relevant patients, tissue, or data.","Research only tangentially related to clinical work; no access to relevant patient populations; reliance on outside collaborators for core work."],
+  ["Structure of clinical work & research time","The intensity, unpredictability, and procedural demands of practice directly affect protected research time.","High procedural-volume requirements; unpredictable call; continuous longitudinal duties that fragment research time."],
+  ["Structured research pathways & mentorship","Early-career success tracks closely with access to formal pathways and experienced physician-scientist mentors.","Reliance on a single mentor; no structured pathway; little history of trainee research success."],
+  ["Institutional environment & culture","Institutional commitment is often more determinative than specialty alone.","RVU-driven departments with thin research infrastructure; no protected-time enforcement; few physician-scientists in leadership."],
+  ["Financial model & long-term sustainability","Financial pressure shapes effort allocation and retention in research.","Salary heavily reliant on clinical revenue; effort/funding misalignment; no investment in early-career investigators."]
+];
+const PATH_TRACKS = [
+  ["ABIM Research Pathway","Internal Medicine","Integrates research with residency; board eligibility by PGY-4/5 and a faster route to protected research."],
+  ["ABP Integrated / Accelerated Research Pathway","Pediatrics","Restructures clinical training to accelerate the transition into fellowship research."],
+  ["ABPath Physician-Scientist Research Pathway","Pathology","Formal track protecting research time; clinical duties often interface with translational work."],
+  ["ABR Holman Research Pathway","Radiology & Radiation Oncology","Reallocates training time toward dedicated research (ACGME-recognized)."],
+  ["ABMGG certification pathways","Medical Genetics & Genomics","Multiple entry routes, often combined with IM/Peds/Ob-Gyn; rapidly expanding translational genomics research."],
+  ["Institution-specific PSTP tracks","Neurology, Psychiatry, Dermatology, Anesthesiology, EM, Surgery, Ophthalmology, Ob/Gyn","Dedicated but heterogeneous research time, often unadvertised — investigate each program individually (Gallagher et al., 2022)."]
+];
+const FUNDING = [
+  ["F30 / F31","Predoctoral (MD-PhD / PhD)","Individual NIH predoctoral fellowships supporting dual-degree or PhD training."],
+  ["K-awards (K08, K23, etc.)","Early faculty / late training","Mentored career-development awards; protected research time toward independence (see Rockey et al., 2025)."],
+  ["T32 training grants","Residency / fellowship","Institutional training support; a signal of departmental research commitment."],
+  ["R25","Residency","Research education programs that carve out research time during clinical training."],
+  ["R38 (StARR)","Residency","Stimulating Access to Research in Residency — protected research for residents."],
+  ["F32","Postdoctoral / fellowship","Individual postdoctoral fellowship support."],
+  ["K99/R00","Late postdoc → early faculty","Pathway-to-independence award bridging mentored and independent phases."],
+  ["NIH Loan Repayment Program (LRP)","Training / early career","Up to $50,000/yr in debt repayment for NIH-relevant research."],
+  ["CTSA KL2","Junior faculty","Institutional clinical & translational science career-development support."],
+  ["Foundation fellowships (e.g., FAER)","Residency / fellowship","Specialty-specific research funding (FAER supports anesthesiology research education)."],
+  ["PSLF","Academic career","Public Service Loan Forgiveness for qualifying academic-medicine roles."],
+  ["Startup / bridge packages","Early faculty","Protected time, pilot funds, salary guarantees — negotiate with established-investigator input."]
+];
+const STAGES = [
+  ["Early career","Establishing clinical competence, securing protected time, building independent projects","Research-track residencies/fellowships (ABIM, ABP, Holman), F32 and K-awards."],
+  ["Mid career","Balancing clinical, research, and administrative roles; mentoring; sustaining funding","R01 funding, leadership in research divisions, industry collaborations."],
+  ["Late career","Mentorship, institutional leadership, advocacy for physician-scientists","Directing training programs, NIH study sections, shaping institutional policy."]
+];
+const REFERENCES = [
+  ["Brass LF, Akabas MH. The national MD-PhD program outcomes study: relationships between medical specialty, training duration, research effort, and career paths. JCI Insight. 2019;4(19):e133009.","https://insight.jci.org/articles/view/133009"],
+  ["Gallagher EJ, et al. Pearls of wisdom for aspiring physician-scientist residency applicants and program directors. JCI Insight. 2022;7(6):e158467.","https://pubmed.ncbi.nlm.nih.gov/35315364/"],
+  ["JCI Insight physician-scientist development perspective (2023). PubMed 37782020.","https://pubmed.ncbi.nlm.nih.gov/37782020/"],
+  ["Rhee KY, et al. Paving the physician-scientist career path: from grassroots gathering to national forum. JCI Insight. 2025;10(7):e192689.","https://pubmed.ncbi.nlm.nih.gov/40197362/"],
+  ["Rockey DC, et al. An insider's guide to understanding and obtaining an NIH K career development award. JCI Insight. 2025;10(12):e191904.","https://pubmed.ncbi.nlm.nih.gov/40548379/"],
+  ["Swartz TH, et al. Navigating the Path: advice to physician-scientists on choosing a clinical specialty. eLife reviewed preprint (2026).","https://elifesciences.org/reviewed-preprints/110448v1"]
+];
+const QUESTIONS = [
+  {q:"What kind of research excites you most?",opts:[
+    {t:"Cancer biology / oncology",w:{"Internal Medicine":2,"Pathology":2,"Radiation Oncology":2,"Radiology":1,"Pediatrics":1,"Surgery":1}},
+    {t:"Neuroscience / brain",w:{"Neurology":3,"Psychiatry":2,"Neurosurgery":2}},
+    {t:"Immunology / infection",w:{"Internal Medicine":2,"Dermatology":1,"Pediatrics":1,"Pathology":1}},
+    {t:"Genetics / mechanisms of disease",w:{"Pathology":2,"Medical Genetics":2,"Internal Medicine":1,"Pediatrics":1}},
+    {t:"Imaging / computation / AI",w:{"Radiology":3,"Pathology":1,"Dermatology":1}}]},
+  {q:"What do you enjoy clinically?",opts:[
+    {t:"Procedures / hands-on",w:{"Surgery":3,"Neurosurgery":2,"Anesthesiology":2,"Ophthalmology":2,"Radiology":1}},
+    {t:"Pattern recognition / visual",w:{"Pathology":3,"Dermatology":2,"Radiology":2,"Ophthalmology":1}},
+    {t:"Long-term patient relationships",w:{"Internal Medicine":2,"Pediatrics":2,"Psychiatry":2,"Neurology":1}},
+    {t:"Acute / critical care",w:{"Emergency Medicine":3,"Anesthesiology":2,"Internal Medicine":1}},
+    {t:"Little / no direct patient contact",w:{"Pathology":3,"Radiology":1}}]},
+  {q:"How important is a predictable, protectable schedule?",opts:[
+    {t:"Very — I want guardable research blocks",w:{"Pathology":2,"Dermatology":2,"Radiology":1,"Anesthesiology":1,"Emergency Medicine":1}},
+    {t:"I'll trade hours for the right alignment",w:{"Surgery":2,"Neurosurgery":2,"Internal Medicine":1}},
+    {t:"Flexible",w:{"Internal Medicine":1,"Pediatrics":1,"Neurology":1}}]},
+  {q:"How soon do you want research independence?",opts:[
+    {t:"As fast as possible (short training)",w:{"Internal Medicine":2,"Pathology":2,"Pediatrics":1}},
+    {t:"Length is fine if alignment is strong",w:{"Neurosurgery":2,"Surgery":1,"Neurology":1}}]},
+  {q:"How much do you value an established national research track?",opts:[
+    {t:"A lot — I want a structured pathway",w:{"Internal Medicine":2,"Pediatrics":2,"Pathology":2,"Radiology":2,"Radiation Oncology":1}},
+    {t:"I'm willing to negotiate one individually",w:{"Dermatology":1,"Psychiatry":1,"Anesthesiology":1,"Emergency Medicine":1,"Surgery":1,"Neurology":1,"Ophthalmology":1,"Medical Genetics":1}}]}
+];
+
+let programs = [];
+let storageMode = "local";
+let storageNote = "";
+const KEY = "ps_navigator_programs_v2";
+const PSTP_ALIAS_RANK = null;
+
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const esc=s=>(s==null?"":String(s)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function uid(){ return Math.random().toString(36).slice(2,10); }
+function hasStorage(){ return !!(window.storage && typeof window.storage.set==="function" && typeof window.storage.get==="function"); }
+
+async function loadPrograms(){
+  if(hasStorage()){
+    try{
+      const res = await window.storage.get(KEY, true);
+      if(res && res.value){ programs = JSON.parse(res.value); storageMode="shared"; return; }
+    }catch(e){}
+    programs = PROG_SEED.map(p=>({...p, pstps:(p.pstps||[]).slice(), id:uid()}));
+    await persist(true);
+    return;
+  }
+  storageMode="local"; storageNote="Local session — use Export to save and share.";
+  programs = PROG_SEED.map(p=>({...p, pstps:(p.pstps||[]).slice(), id:uid()}));
+}
+async function persist(silent){
+  if(hasStorage()){
+    try{
+      await window.storage.set(KEY, JSON.stringify(programs), true);
+      storageMode="shared"; storageNote=""; updateSyncIndicator(); return true;
+    }catch(e){
+      storageMode="local";
+      storageNote="Shared sync unavailable right now — changes are kept for this session; use Export to save.";
+      updateSyncIndicator(); if(!silent) console.warn("Shared storage unavailable; continuing locally."); return false;
+    }
+  }
+  return false;
+}
+function updateSyncIndicator(){
+  const el=$("#pgStatusWrap"); if(!el) return;
+  const live=storageMode==="shared";
+  const label=live?"Shared directory — additions visible to all":(storageNote||"Local session — use Export to save & share");
+  el.innerHTML=`<span class="status" title="${esc(label)}"><span class="dot ${live?'live':''}"></span>${esc(label)}</span>`;
+}
+
+$("#tabs").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  $$("#tabs button").forEach(x=>x.classList.toggle("active",x===b));
+  $$(".view").forEach(v=>v.classList.toggle("active",v.id===b.dataset.v));
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+function tagClass(pop){return pop==="common"?"t-common":pop==="rising"?"t-rising":pop==="special"?"t-special":"t-emerging";}
+function tagLabel(pop){return pop==="common"?"Most common":pop==="rising"?"Rising":pop==="special"?"Specialized track":"Emerging / non-traditional";}
+function statusClass(s){return s==="Residency PSTP host"?"t-pstp":"t-mstp";}
+function searchLink(p){return p.web?p.web:("https://www.google.com/search?q="+encodeURIComponent(p.name+" physician scientist training"));}
+function allPstpSpecialties(){ return [...new Set(programs.flatMap(p=>p.pstps||[]))].sort(); }
+
+function refreshFilters(){
+  const states=[...new Set(programs.map(p=>p.state).filter(Boolean))].sort();
+  const curS=$("#pgState").value;
+  $("#pgState").innerHTML=`<option value="">All states</option>`+states.map(s=>`<option ${s===curS?'selected':''}>${esc(s)}</option>`).join("");
+  const sp=allPstpSpecialties(); const curP=$("#pgPstp").value;
+  $("#pgPstp").innerHTML=`<option value="">Any PSTP specialty</option>`+sp.map(s=>`<option ${s===curP?'selected':''}>${esc(s)}</option>`).join("");
+}
+function renderPrograms(){
+  const q=$("#pgSearch").value.toLowerCase().trim();
+  const st=$("#pgState").value, status=$("#pgStatus").value, psp=$("#pgPstp").value, sort=$("#pgSort").value;
+  let list=programs.filter(p=>{
+    if(st && p.state!==st) return false;
+    if(status && p.status!==status) return false;
+    if(psp && !(p.pstps||[]).includes(psp)) return false;
+    if(q){ const hay=[p.name,p.city,p.state,p.strength,p.mentors,p.allied,p.degree,(p.pstps||[]).join(" ")].join(" ").toLowerCase(); if(!hay.includes(q)) return false; }
+    return true;
+  });
+  list.sort((a,b)=>{
+    if(sort==="state") return (a.state||"").localeCompare(b.state||"")||a.name.localeCompare(b.name);
+    if(sort==="pstp") return (b.pstps||[]).length-(a.pstps||[]).length||a.name.localeCompare(b.name);
+    return a.name.localeCompare(b.name);
+  });
+  $("#pgCount").textContent=`${list.length} of ${programs.length} programs`;
+  $("#pgGrid").innerHTML = list.map(p=>`
+    <article class="card pg" data-id="${p.id}">
+      <div class="pad">
+        <h4 class="nm">${p.web?`<a class="nmlink" href="${esc(p.web)}" target="_blank" rel="noopener">${esc(p.name)} <span class="nmgo">↗</span></a>`:esc(p.name)} ${p.seed?'<span class="seedflag" title="Seed entry — verify details locally">★</span>':''}</h4>
+        <div class="loc">${esc(p.city)}${p.city&&p.state?', ':''}${esc(p.state)}${p.founded?` · est. ${esc(p.founded)}`:''}</div>
+        <div class="meta">
+          ${p.status==="Residency PSTP host"?'<span class="tag t-pstp">Residency PSTP host</span>':''}
+          <span class="pill">${esc(p.degree)}</span>
+          ${p.classSize?`<span class="pill"><b>${esc(p.classSize)}</b>/yr</span>`:''}
+        </div>
+        ${(p.pstps&&p.pstps.length)?`<div class="pspline"><span class="k">PSTPs</span>${p.pstps.map(x=>`<span class="psp-chip">${esc(x)}</span>`).join("")}</div>`:''}
+        ${p.allied?`<div class="loc">PhD partners: ${esc(p.allied)}</div>`:''}
+        ${p.strength?`<div class="strength"><b>Strengths:</b> ${esc(p.strength)}</div>`:''}
+        ${p.mentors?`<div class="strength"><b>Mentors / contacts:</b> ${esc(p.mentors)}</div>`:''}
+      </div>
+    </article>`).join("") || `<div class="empty">No programs match. Clear filters or add one with “+ Add a program”.</div>`;
+}
+["pgSearch","pgState","pgStatus","pgPstp","pgSort"].forEach(id=>$("#"+id).addEventListener("input",renderPrograms));
+
+let editingId=null;
+function openModal(id){
+  editingId=id||null;
+  const p=id?programs.find(x=>x.id===id):null;
+  $("#modalTitle").textContent=id?"Edit program":"Add a program";
+  $("#fName").value=p?p.name:""; $("#fCity").value=p?p.city:""; $("#fState").value=p?p.state:"";
+  $("#fStatus").value=p?p.status:"MD-PhD program"; $("#fDegree").value=p?p.degree:"MD-PhD";
+  $("#fFounded").value=p?(p.founded||""):""; $("#fClass").value=p?(p.classSize||""):"";
+  $("#fPstps").value=p?((p.pstps||[]).join("; ")):"";
+  $("#fAllied").value=p?(p.allied||""):""; $("#fStrength").value=p?(p.strength||""):"";
+  $("#fMentors").value=p?(p.mentors||""):""; $("#fWeb").value=p?(p.web||""):"";
+  $("#modal").classList.add("show");
+}
+function closeModal(){ $("#modal").classList.remove("show"); }
+function parsePstps(str){ return (str||"").split(/[;,]/).map(s=>s.trim()).filter(Boolean); }
+$("#addBtn").addEventListener("click",()=>openModal(null));
+$("#cancelBtn").addEventListener("click",closeModal);
+$("#modal").addEventListener("click",e=>{ if(e.target.id==="modal") closeModal(); });
+$("#saveBtn").addEventListener("click",async ()=>{
+  const name=$("#fName").value.trim(), city=$("#fCity").value.trim(), state=$("#fState").value.trim().toUpperCase();
+  if(!name){ alert("Program / institution name is required."); return; }
+  const rec={name,city,state,status:$("#fStatus").value,degree:$("#fDegree").value,
+    founded:$("#fFounded").value.trim(),classSize:$("#fClass").value.trim(),pstps:parsePstps($("#fPstps").value),
+    allied:$("#fAllied").value.trim(),strength:$("#fStrength").value.trim(),mentors:$("#fMentors").value.trim(),web:$("#fWeb").value.trim()};
+  if(editingId){ Object.assign(programs.find(x=>x.id===editingId),rec); }
+  else{ programs.unshift({...rec,id:uid(),seed:false}); }
+  await persist(); closeModal(); refreshFilters(); renderPrograms(); updateStats();
+});
+
+$("#exportCsv").addEventListener("click",()=>{
+  const cols=["name","city","state","degree","status","founded","classSize","pstps","allied","strength","mentors","web"];
+  const head=cols.join(",");
+  const rows=programs.map(p=>cols.map(c=>{let v=c==="pstps"?(p.pstps||[]).join("; "):(p[c]==null?"":String(p[c]));v=v.replace(/"/g,'""');return /[",\n]/.test(v)?`"${v}"`:v;}).join(","));
+  download("nacst-programs.csv",[head,...rows].join("\n"),"text/csv");
+});
+function download(fn,text,type){
+  const blob=new Blob([text],{type:(type||"text/plain")+";charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url; a.download=fn; a.rel="noopener"; a.style.display="none";
+  document.body.appendChild(a);
+  try{ a.click(); }
+  catch(e){ window.open(url,"_blank"); }
+  setTimeout(()=>{ if(a.parentNode) a.parentNode.removeChild(a); URL.revokeObjectURL(url); },2000);
+}
+
+function updateStats(){
+  $("#stProg").textContent=programs.length;
+  $("#stStates").textContent=new Set(programs.map(p=>p.state).filter(Boolean)).size;
+  $("#stMstp").textContent=programs.filter(p=>p.status!=="Residency PSTP host").length;
+  $("#stPstp").textContent=programs.filter(p=>(p.pstps||[]).length>0).length;
+}
+
+function renderSpecs(){
+  const q=$("#specSearch").value.toLowerCase().trim(),pop=$("#specPop").value,path=$("#specPath").value;
+  const list=SPECIALTIES.filter(s=>{
+    if(pop&&s.pop!==pop) return false;
+    if(path==="yes"&&!s.pathwayShort) return false;
+    if(path==="no"&&s.pathwayShort) return false;
+    if(q&&!(s.name.toLowerCase().includes(q)||s.align.join(" ").toLowerCase().includes(q)||s.integNote.toLowerCase().includes(q))) return false;
+    return true;
+  });
+  $("#specCount").textContent=`${list.length} of ${SPECIALTIES.length} specialties`;
+  $("#specGrid").innerHTML=list.map(s=>`
+    <article class="card spec" data-name="${esc(s.name)}"><div class="pad">
+      <div class="row1"><h3>${esc(s.name)}</h3><span class="tag ${tagClass(s.pop)}">${tagLabel(s.pop)}</span></div>
+      ${s.grad!=null?`<div class="gradwrap" title="Share of all MD-PhD graduates entering this field (Akabas & Brass, 2019)"><span class="lbl">MD-PhD grads · ${esc(s.gradLabel)}</span><span class="meter"><i style="width:${Math.max(3,Math.round(s.grad/GRAD_MAX*100))}%"></i></span></div>`
+        :`<div class="gradwrap"><span class="lbl" style="color:var(--ink-soft)">Graduate share not separately reported</span></div>`}
+      <div class="pills">
+        <span class="pill ${s.pathwayShort?'yes':''}">${s.pathwayShort?'✓ National / board track':'Institution-specific'}</span>
+        ${s.density!=null?`<span class="pill"><b>${s.density}%</b> of residents are MD-PhD</span>`:''}
+      </div>
+    </div></article>`).join("")||`<div class="empty">No specialties match those filters.</div>`;
+  $$("#specGrid .spec").forEach(el=>el.addEventListener("click",()=>openSpec(el.dataset.name)));
+}
+function openSpec(name){
+  const s=SPECIALTIES.find(x=>x.name===name); if(!s) return;
+  $("#dTag").className="tag "+tagClass(s.pop); $("#dTag").textContent=tagLabel(s.pop); $("#dName").textContent=s.name;
+  const pstpName=PSTP_ALIAS[s.name]||s.name;
+  const hasPstp=allPstpSpecialties().includes(pstpName);
+  $("#dBody").innerHTML=`
+    <div class="deet"><div class="k">Why it fits a research career</div><div class="v">${esc(s.integNote)}</div></div>
+    ${s.grad!=null?`<div class="deet"><div class="k">Share of MD-PhD graduates</div><div class="v">${esc(s.gradLabel)} of MD-PhD graduates enter this field. <small>(Akabas &amp; Brass, 2019)</small></div></div>`:''}
+    ${s.density!=null?`<div class="deet"><div class="k">MD-PhD density</div><div class="v">${s.density}% of entering residents in this field are MD-PhD graduates. <small>(normalized to residency size; Emala, 2023)</small></div></div>`:''}
+    ${s.outcome?`<div class="deet"><div class="k">National outcomes</div><div class="v">${s.outcome}</div></div>`:''}
+    <div class="deet"><div class="k">Research-track pathway</div><div class="v">${s.pathwayShort?'✓ ':''}${esc(s.pathway)}</div></div>
+    <div class="deet"><div class="k">Length of training</div><div class="v muted">${esc(s.length)}</div></div>
+    <div class="deet"><div class="k">Lifestyle &amp; schedule</div><div class="v muted">${esc(s.lifestyle)}</div></div>
+    <div class="deet"><div class="k">Protected-time culture</div><div class="v muted">${esc(s.protected)}</div></div>
+    <div class="deet"><div class="k">Common research areas</div><div class="chips">${s.align.map(a=>`<span class="pill">${esc(a)}</span>`).join("")}</div></div>
+    <div class="deet"><div class="k">What to ask programs</div><div class="v"><ul style="margin:4px 0 0;padding-left:18px">${s.ask.map(a=>`<li style="margin-bottom:6px">${esc(a)}</li>`).join("")}</ul></div></div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+      ${hasPstp?`<button class="btn" data-pstp="${esc(pstpName)}" style="width:100%">Find programs with a ${esc(s.name)} PSTP</button>`:''}
+      <button class="btn ghost" data-browse="1" style="width:100%">Browse the full program directory →</button>
+    </div>`;
+  const pb=$("#dBody [data-pstp]"); if(pb) pb.addEventListener("click",e=>jumpToPSTP(e.target.dataset.pstp));
+  $("#dBody [data-browse]").addEventListener("click",()=>jumpToPrograms(""));
+  showDrawer(true);
+}
+function showDrawer(on){$("#drawer").classList.toggle("show",on);$("#scrim").classList.toggle("show",on);}
+$("#drawerClose").addEventListener("click",()=>showDrawer(false));
+$("#scrim").addEventListener("click",()=>showDrawer(false));
+["specSearch","specPop","specPath"].forEach(id=>$("#"+id).addEventListener("input",renderSpecs));
+
+function gotoPrograms(){
+  $$("#tabs button").forEach(x=>x.classList.toggle("active",x.dataset.v==="programs"));
+  $$(".view").forEach(v=>v.classList.toggle("active",v.id==="programs"));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function jumpToPrograms(term){
+  showDrawer(false); gotoPrograms();
+  $("#pgState").value=""; $("#pgStatus").value=""; $("#pgPstp").value=""; $("#pgSearch").value=term||"";
+  renderPrograms();
+}
+function jumpToPSTP(specialty){
+  showDrawer(false); gotoPrograms();
+  $("#pgState").value=""; $("#pgStatus").value=""; $("#pgSearch").value=""; $("#pgPstp").value=specialty; $("#pgSort").value="type";
+  renderPrograms();
+}
+
+function renderRef(){
+  $("#factorBody").innerHTML=DECISION_FACTORS.map(r=>`<tr><td><b>${esc(r[0])}</b></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+  $("#pathTrackBody").innerHTML=PATH_TRACKS.map(r=>`<tr><td><b>${esc(r[0])}</b></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+  $("#fundBody").innerHTML=FUNDING.map(r=>`<tr><td><span class="mech">${esc(r[0])}</span></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+  $("#stageBody").innerHTML=STAGES.map(r=>`<tr><td><b>${esc(r[0])}</b></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+  $("#refList").innerHTML=REFERENCES.map(r=>`<div class="refitem">${esc(r[0])} <a href="${esc(r[1])}" target="_blank" rel="noopener">View ↗</a></div>`).join("");
+}
+
+function renderQuiz(){
+  $("#quiz").innerHTML=QUESTIONS.map((Q,qi)=>`
+    <div class="q"><p class="qt">${qi+1}. ${esc(Q.q)}</p>
+    <div class="opts">${Q.opts.map((o,oi)=>`<span class="opt" data-q="${qi}" data-o="${oi}">${esc(o.t)}</span>`).join("")}</div></div>`).join("");
+  $$("#quiz .opt").forEach(el=>el.addEventListener("click",()=>el.classList.toggle("on")));
+}
+$("#scoreBtn").addEventListener("click",()=>{
+  const score={}; SPECIALTIES.forEach(s=>score[s.name]=0);
+  $$("#quiz .opt.on").forEach(el=>{const o=QUESTIONS[+el.dataset.q].opts[+el.dataset.o];Object.entries(o.w).forEach(([k,v])=>{if(score[k]!=null)score[k]+=v;});});
+  const ranked=Object.entries(score).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  if(!ranked.length){ $("#quizResult").innerHTML=`<div class="card pad"><p class="lead" style="margin:0">Select a few options above, then try again.</p></div>`; return; }
+  const max=ranked[0][1];
+  $("#quizResult").innerHTML=`<div class="card pad result">
+    <h3>Specialties worth exploring</h3>
+    <p class="lead" style="margin:2px 0 14px">Suggestions only — fit depends on the people and culture you actually meet. Open each to see its full profile, national outcomes, and what to ask programs.</p>
+    ${ranked.map(([name,v])=>{const pn=PSTP_ALIAS[name]||name; const hp=allPstpSpecialties().includes(pn); return `<div class="matchrow">
+      <span class="nmx">${esc(name)}</span>
+      <span class="scorebar"><i style="width:${Math.round(v/max*100)}%"></i></span>
+      <span class="pc">${Math.round(v/max*100)}%</span>
+      <button class="btn ghost sm" data-go="${esc(name)}">Explore</button>
+      ${hp?`<button class="btn accent sm" data-pstp="${esc(pn)}">Find PSTPs</button>`:''}
+    </div>`;}).join("")}</div>`;
+  $$("#quizResult [data-go]").forEach(b=>b.addEventListener("click",()=>openSpec(b.dataset.go)));
+  $$("#quizResult [data-pstp]").forEach(b=>b.addEventListener("click",()=>jumpToPSTP(b.dataset.pstp)));
+});
+$("#resetQuiz").addEventListener("click",()=>{ $$("#quiz .opt.on").forEach(o=>o.classList.remove("on")); $("#quizResult").innerHTML=""; });
+
+let cmpSel=[];
+function renderCmpChips(){
+  const wrap=$("#cmpChips"); if(!wrap) return;
+  wrap.innerHTML=SPECIALTIES.map(s=>{
+    const on=cmpSel.includes(s.name), dis=!on&&cmpSel.length>=3;
+    return `<button class="cmp-chip${on?' on':''}" data-c="${esc(s.name)}"${dis?' disabled':''}>${esc(s.name)}</button>`;
+  }).join("")+(cmpSel.length?`<button class="cmp-chip clear" data-clear="1">Clear</button>`:"");
+  $$("#cmpChips .cmp-chip").forEach(b=>b.addEventListener("click",()=>{
+    if(b.dataset.clear){cmpSel=[];renderCmpChips();renderCmpTable();return;}
+    const n=b.dataset.c,i=cmpSel.indexOf(n);
+    if(i>=0)cmpSel.splice(i,1); else if(cmpSel.length<3)cmpSel.push(n);
+    renderCmpChips();renderCmpTable();
+  }));
+}
+function cmpVal(v){return (v==null||v==="")?'<span class="cmp-na">Not separately tabulated</span>':v;}
+function renderCmpTable(){
+  const host=$("#cmpTable"); if(!host) return;
+  if(!cmpSel.length){host.innerHTML='<p class="cmp-hint">Select up to three specialties above to compare them side by side.</p>';return;}
+  const cols=cmpSel.map(n=>SPECIALTIES.find(s=>s.name===n)).filter(Boolean);
+  const trackCell=c=>cmpVal(c.pathway)+(c.pathway?(c.pathwayShort?' <span class="cmp-badge">established / short-track</span>':' <span class="cmp-badge alt">often individually negotiated</span>'):"");
+  const rows=[
+    ["Share of MD-PhD graduates",c=>cmpVal(c.gradLabel)],
+    ["Typical training length",c=>cmpVal(c.length)],
+    ["Research-track type",trackCell],
+    ["Protected-time culture",c=>cmpVal(c.protected)],
+    ["National outcomes note",c=>cmpVal(c.outcome)]
+  ];
+  let h='<table class="cmp"><thead><tr><th></th>'+cols.map(c=>`<th>${esc(c.name)}</th>`).join("")+'</tr></thead><tbody>';
+  rows.forEach(([label,fn])=>{h+=`<tr><th>${label}</th>`+cols.map(c=>`<td>${fn(c)}</td>`).join("")+'</tr>';});
+  host.innerHTML=h+'</tbody></table>';
+}
+
+(async function init(){
+  renderSpecs(); renderRef(); renderQuiz(); renderCmpChips(); renderCmpTable();
+  await loadPrograms();
+  refreshFilters(); renderPrograms(); updateStats(); updateSyncIndicator();
+})();
+</script>
+</body>
+</html>
